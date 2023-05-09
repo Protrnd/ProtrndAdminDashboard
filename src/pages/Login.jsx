@@ -1,22 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import {
+  LoginBtn,
   LoginContainer,
   LoginContent,
   LoginForm,
   LoginInputContainer,
-  LoginNavBar,
 } from "../styled/LoginStyled";
-import Logo from "../assets/images/logo.png";
 
 const Login = () => {
+  const navigate = useNavigate();
   return (
     <LoginContainer>
-      <LoginNavBar>
-        <img
-          src={Logo}
-          alt="protrnd"
-        />
-        <p>Protrnd Dashboard</p>
-      </LoginNavBar>
       <LoginContent>
         <LoginForm autoComplete="off">
           <p>Admin Login</p>
@@ -62,6 +56,12 @@ const Login = () => {
               <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
             </svg>
           </LoginInputContainer>
+          <LoginBtn
+            onClick={() => {
+              navigate("/");
+            }}>
+            Continue
+          </LoginBtn>
         </LoginForm>
       </LoginContent>
     </LoginContainer>

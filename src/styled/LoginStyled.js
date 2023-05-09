@@ -3,25 +3,9 @@ import { Centering, colors } from "../styled/UniversalStyles";
 
 export const LoginContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 93vh;
+  border: solid ${colors.grey};
   background: ${colors.grey};
-`;
-
-export const LoginNavBar = styled.div`
-  width: 100%;
-  height: 7vh;
-  display: flex;
-  align-items: center;
-  padding-left: 2%;
-  background: ${colors.white};
-  box-shadow: -7px 7px 14px #cbcbcb, 7px -7px 14px #f8f8f8;
-  & > img {
-    margin-right: 2%;
-  }
-  & > p {
-    color: ${colors.red};
-    font-size: 1.2vw;
-  }
 `;
 
 export const LoginContent = styled.div`
@@ -74,4 +58,17 @@ export const LoginInputContainer = styled.div`
     right: calc(2% + 5px);
     scale: 1.5;
   }
+`;
+
+export const LoginBtn = styled.button`
+  width: 20%;
+  background: ${colors.red};
+  min-width: 100px;
+  padding: 15px;
+  border-radius: 25px;
+  margin-top: 5%;
+  border: none;
+  font-size: 16px;
+  color: ${colors.white};
+  cursor: pointer;
 `;

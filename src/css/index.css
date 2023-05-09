@@ -10,3 +10,7 @@ body {
   height: 100vh;
   font-family: "DM Sans", sans-serif;
 }
+
+body {
+  background: #eee;
+}
