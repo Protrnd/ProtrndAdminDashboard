@@ -27,6 +27,7 @@ export const HomeInfoTab = styled.div`
   border-radius: 20px;
   padding-left: 20px;
   display: flex;
+
   justify-content: center;
   flex-direction: column;
   background: linear-gradient(225deg, #e6e6e6, #ffffff);
@@ -36,8 +37,12 @@ export const HomeInfoTab = styled.div`
     display: flex;
     align-items: center;
   }
+  & > .data > img {
+    scale: 1.2;
+    object-fit: contain;
+  }
   & > .data > p {
-    margin-left: 10px;
+    margin: 15px;
     font-size: 1.2vw;
     font-weight: 600;
   }

@@ -10,8 +10,8 @@ export const LoginContainer = styled.div`
 
 export const LoginContent = styled.div`
   width: 40%;
-  height: 60%;
-  margin: 7% auto;
+  height: 70%;
+  margin: 10% auto;
   padding: 2% 2%;
   background: ${colors.white};
   border-radius: 16px;
@@ -23,9 +23,9 @@ export const LoginContent = styled.div`
 export const LoginForm = styled.form`
   width: 100%;
   height: 100%;
-  ${Centering}
-  justify-content: flex-start;
+  display: flex;
   flex-direction: column;
+  align-items: center;
   & > p {
     font-size: 2vw;
     font-weight: 600;
@@ -36,7 +36,7 @@ export const LoginInputContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 7%;
+  margin-top: 20px;
   position: relative;
   & > label {
     font-size: 1.5vw;
@@ -63,11 +63,13 @@ export const LoginInputContainer = styled.div`
 export const LoginBtn = styled.button`
   width: 20%;
   background: ${colors.red};
+  ${Centering}
   min-width: 100px;
   padding: 15px;
   border-radius: 25px;
   margin-top: 5%;
   border: none;
+  outline: none;
   font-size: 16px;
   color: ${colors.white};
   cursor: pointer;

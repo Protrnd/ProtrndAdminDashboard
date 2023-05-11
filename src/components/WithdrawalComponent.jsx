@@ -12,7 +12,7 @@ const WithdrawalComponent = () => {
         }}
       />
       <NavLink to={"/withdrawal"}>View all</NavLink>
-      <table class="table">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">Status</th>

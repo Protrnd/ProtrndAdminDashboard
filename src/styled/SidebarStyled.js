@@ -5,6 +5,7 @@ export const SidebarContainer = styled.div`
   width: 15%;
   margin-top: 7vh;
   height: 93vh;
+  z-index: 7;
   position: fixed;
   left: 0;
   background: ${colors.white};

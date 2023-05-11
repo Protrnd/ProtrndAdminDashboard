@@ -7,21 +7,76 @@ import {
   LoginInputContainer,
 } from "../styled/LoginStyled";
 
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Bars } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from "../config/config";
+import { colors } from "../styled/UniversalStyles";
+
 const Login = () => {
+  const [APIResponse, setAPIResponse] = useState({});
+  const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const AuthLogin = async (e) => {
+    const url = "auth/login/jwt";
+    e.preventDefault();
+    setLoading(true);
+    axios.defaults.withCredentials = true;
+    await axios
+      .post(API_URL + url, {
+        email: "protrndng@gmail.com",
+        password: "string",
+      })
+      .then((res) => {
+        setLoading(false);
+        setAPIResponse(res.data);
+        setToken(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setAPIResponse(err.response.data);
+      });
+  };
+
+  useEffect(() => {
+    if (APIResponse.successful === true) {
+      toast.success(APIResponse.message);
+      localStorage.setItem("token", token);
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    }
+    if (APIResponse.successful === false) {
+      toast.error(APIResponse.message);
+    }
+    return () => {};
+  }, [APIResponse, navigate, token]);
+
   return (
     <LoginContainer>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <LoginContent>
-        <LoginForm autoComplete="off">
+        <LoginForm
+          onSubmit={(e) => {
+            AuthLogin(e);
+          }}>
           <p>Admin Login</p>
-          <input
-            autocomplete="false"
-            name="hidden"
-            type="text"
-            style={{
-              display: "none",
-            }}
-          />
           <LoginInputContainer>
             <label htmlFor="email">Email</label>
             <input
@@ -56,11 +111,21 @@ const Login = () => {
               <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
             </svg>
           </LoginInputContainer>
-          <LoginBtn
-            onClick={() => {
-              navigate("/");
-            }}>
-            Continue
+
+          <LoginBtn type="submit">
+            {loading === false ? (
+              "Continue"
+            ) : (
+              <Bars
+                height="20"
+                width="20"
+                color={colors.white}
+                ariaLabel="bars-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={loading}
+              />
+            )}
           </LoginBtn>
         </LoginForm>
       </LoginContent>
