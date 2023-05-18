@@ -8,6 +8,7 @@ import UsersIcon from "../assets/images/people.png";
 import UsersActiveIcon from "../assets/images/people-active.png";
 import RevenueIcon from "../assets/images/revenue.png";
 import HelpIcon from "../assets/images/help.png";
+import useGetWindowSize from "../hooks/useWindowSize";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
@@ -70,26 +71,26 @@ const Sidebar = () => {
       name: "Help",
     },
   ];
-  return (
-    pathname !== "/login" && (
-      <SidebarContainer>
-        {sidebarTabs.map((item) => {
-          const { id, path, name, icon } = item;
-          return (
-            <SidebarTab
-              key={id}
-              $active={path === pathname}
-              onClick={() => {
-                navigate(path);
-              }}>
-              {icon}
-              <p>{name}</p>
-            </SidebarTab>
-          );
-        })}
-      </SidebarContainer>
-    )
-  );
+  const windowWidth = useGetWindowSize().innerWidth;
+  return pathname !== "/login" && windowWidth > 990 ? (
+    <SidebarContainer>
+      {sidebarTabs.map((item) => {
+        let { id, path, name, icon } = item;
+
+        return (
+          <SidebarTab
+            key={id}
+            $active={path === pathname}
+            onClick={() => {
+              navigate(path);
+            }}>
+            {icon}
+            <p>{name}</p>
+          </SidebarTab>
+        );
+      })}
+    </SidebarContainer>
+  ) : null;
 };
 
 export default Sidebar;

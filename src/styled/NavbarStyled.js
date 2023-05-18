@@ -4,11 +4,11 @@ import { colors } from "./UniversalStyles";
 export const NavBarContainer = styled.div`
   width: 100%;
   height: 7vh;
-  display: flex;
   z-index: 5;
   position: fixed;
-  top: 0;
+  display: flex;
   align-items: center;
+  top: 0;
   padding-left: 2%;
   background: ${colors.white};
   box-shadow: -7px 7px 14px #cbcbcb, 7px -7px 14px #f8f8f8;
@@ -18,5 +18,11 @@ export const NavBarContainer = styled.div`
   & > p {
     color: ${colors.red};
     font-size: 1.2vw;
+    margin-top: auto;
+  }
+  @media screen and (max-width: 990px) {
+    & > p {
+      font-size: 1rem;
+    }
   }
 `;

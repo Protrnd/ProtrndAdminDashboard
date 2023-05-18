@@ -16,6 +16,7 @@ function Chart({ title, data, dataKey, grid }) {
       <h3 className="chartTitle">{title}</h3>
       <ResponsiveContainer
         width="100%"
+        height={"100%"}
         aspect={4 / 1}>
         <LineChart data={data}>
           <XAxis

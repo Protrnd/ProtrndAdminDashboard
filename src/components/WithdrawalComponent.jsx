@@ -1,8 +1,30 @@
 import { NavLink } from "react-router-dom";
 import { HomeInfoTabLine } from "../styled/HomeStyled";
 import { WithdrawalContainer, TableTd } from "../styled/WithdrawalStyled";
+import moment from "moment";
 
-const WithdrawalComponent = () => {
+moment.updateLocale("en", {
+  relativeTime: {
+    future: "in %s",
+    past: "%s ago",
+    s: "a few seconds",
+    ss: "%d seconds",
+    m: "a minute",
+    mm: "%d minutes",
+    h: "1 hour ago",
+    hh: "%d hours",
+    d: "a day",
+    dd: "%d days",
+    w: "a week",
+    ww: "%d weeks",
+    M: "1 mth ago",
+    MM: "%d mths",
+    y: "a year",
+    yy: "%d years",
+  },
+});
+
+const WithdrawalComponent = ({ data }) => {
   return (
     <WithdrawalContainer>
       <p>WITHDRAWAL REQUESTS</p>
@@ -12,48 +34,40 @@ const WithdrawalComponent = () => {
         }}
       />
       <NavLink to={"/withdrawal"}>View all</NavLink>
+
       <table className="table">
         <thead>
           <tr>
             <th scope="col">Status</th>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Bank Name</th>
             <th scope="col">Amount</th>
             <th scope="col">Date</th>
             <th scope="col" />
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <TableTd $completed>Completed</TableTd>
-            <td>@protrnd</td>
-            <td>protrndng@gmail.com</td>
-            <td>#500,000</td>
-            <td>6 dy ago</td>
-            <td>
-              <NavLink to={"/withdrawal?id=1"}>Details</NavLink>
-            </td>
-          </tr>
-          <tr>
-            <TableTd>Pending</TableTd>
-            <td>@protrnd</td>
-            <td>protrndng@gmail.com</td>
-            <td>#500,000</td>
-            <td>1 wk ago</td>
-            <td>
-              <NavLink to={"/withdrawal?id=1"}>Details</NavLink>
-            </td>
-          </tr>
-          <tr>
-            <TableTd $rejected>Rejected</TableTd>
-            <td>@protrnd</td>
-            <td>protrndng@gmail.com</td>
-            <td>#500,000</td>
-            <td>1 mth ago</td>
-            <td>
-              <NavLink to={"/withdrawal?id=1"}>Details</NavLink>
-            </td>
-          </tr>
+          {data?.map((item) => {
+            const { id, status, account, amount, created } = item;
+            let date = moment(created).utc().format("YYYY-MM-DD hh:mm:ss");
+            date = moment(date).fromNow();
+            return (
+              <tr key={id}>
+                <TableTd
+                  $completed={status === "Approved"}
+                  $rejected={status === "Rejected"}>
+                  {status}
+                </TableTd>
+                <td>{account.accountname}</td>
+                <td>{account.bankname}</td>
+                <td># {amount}</td>
+                <td>{date}</td>
+                <td>
+                  <NavLink to={`/withdrawal?id=${id}`}>Details</NavLink>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </WithdrawalContainer>

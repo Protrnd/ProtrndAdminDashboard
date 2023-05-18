@@ -19,28 +19,32 @@ const Login = () => {
   const [APIResponse, setAPIResponse] = useState({});
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
   const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
 
   const AuthLogin = async (e) => {
     const url = "auth/login/jwt";
     e.preventDefault();
     setLoading(true);
-    axios.defaults.withCredentials = true;
-    await axios
-      .post(API_URL + url, {
-        email: "protrndng@gmail.com",
-        password: "string",
-      })
-      .then((res) => {
-        setLoading(false);
-        setAPIResponse(res.data);
-        setToken(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-        setAPIResponse(err.response.data);
-      });
+
+    if (!data.email || !data.password) {
+      setLoading(false);
+      toast.error("Please fill all fields");
+    } else {
+      await axios
+        .post(API_URL + url, data)
+        .then((res) => {
+          setLoading(false);
+          setAPIResponse(res.data);
+          setToken(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+          setAPIResponse(err.response.data);
+        });
+    }
   };
 
   useEffect(() => {
@@ -82,6 +86,10 @@ const Login = () => {
             <input
               type="text"
               placeholder="Example: protrndng@gmail.com"
+              name="email"
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+              }}
               required
             />
             <svg
@@ -99,6 +107,10 @@ const Login = () => {
             <input
               type="password"
               placeholder="********"
+              name="password"
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+              }}
               required
             />
             <svg

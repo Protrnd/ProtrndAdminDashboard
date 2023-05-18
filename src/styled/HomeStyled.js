@@ -11,6 +11,18 @@ export const HomeContainer = styled.div`
     margin-bottom: 20px;
     font-size: 1.5vw;
   }
+  @media screen and (max-width: 990px) {
+    width: 100%;
+    margin: 0;
+    & > p {
+      font-size: 1rem;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    & > p {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 export const HomeInfoTabContainer = styled.div`
@@ -19,6 +31,11 @@ export const HomeInfoTabContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+    height: auto;
+    align-items: start;
+  }
 `;
 
 export const HomeInfoTab = styled.div`
@@ -27,7 +44,6 @@ export const HomeInfoTab = styled.div`
   border-radius: 20px;
   padding-left: 20px;
   display: flex;
-
   justify-content: center;
   flex-direction: column;
   background: linear-gradient(225deg, #e6e6e6, #ffffff);
@@ -43,11 +59,30 @@ export const HomeInfoTab = styled.div`
   }
   & > .data > p {
     margin: 15px;
-    font-size: 1.2vw;
+    font-size: 1.2rem;
     font-weight: 600;
   }
   & > p {
     font-weight: 600;
+  }
+  @media screen and (max-width: 990px) {
+    & > p {
+      font-size: 1rem;
+    }
+    & > .data > p {
+      font-size: 0.8rem;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    padding: 4% 0 4% 5%;
+    margin-bottom: 20px;
+    & > p {
+      font-size: 1.2rem;
+    }
+    & > .data > p {
+      font-size: 1rem;
+    }
   }
 `;
 

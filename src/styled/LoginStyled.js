@@ -18,6 +18,12 @@ export const LoginContent = styled.div`
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
+  @media screen and (max-width: 990px) {
+    width: 100%;
+    padding: calc(5% + 50px) 2% 0 2%;
+    height: 100%;
+    margin: 0;
+  }
 `;
 
 export const LoginForm = styled.form`
@@ -29,6 +35,12 @@ export const LoginForm = styled.form`
   & > p {
     font-size: 2vw;
     font-weight: 600;
+  }
+  @media screen and (max-width: 990px) {
+    & > p {
+      font-size: 2rem;
+      font-weight: 600;
+    }
   }
 `;
 
@@ -57,6 +69,14 @@ export const LoginInputContainer = styled.div`
     top: 60%;
     right: calc(2% + 5px);
     scale: 1.5;
+  }
+  @media screen and (max-width: 990px) {
+    & > label {
+      font-size: 1.5rem;
+    }
+    & > input {
+      font-size: 1.3rem;
+    }
   }
 `;
 
