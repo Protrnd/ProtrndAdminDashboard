@@ -94,14 +94,14 @@ const Home = () => {
     if (
       allUsers.successful === false ||
       totalRevenue.successful === false ||
-      withdrawalRequests.successful === true
+      withdrawalRequests.successful === false
     ) {
       toast.error(allUsers.message);
       toast.error(totalRevenue.message);
       toast.error(withdrawalRequests.message);
 
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 1500);
     }
     return () => {};

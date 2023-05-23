@@ -21,6 +21,8 @@ const Users = () => {
   const usersUrl = "profile/all";
   const approveUrl = "payment/withdrawal/approve/";
   const rejectUrl = "payment/withdrawal/reject/";
+  const enableUrl = "profile/enable/";
+  const disableUrl = "profile/disable/";
   const token = localStorage.getItem("token");
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -82,7 +84,7 @@ const Users = () => {
 
   const disableUser = async () => {
     await axios
-      .post(API_URL + approveUrl + userID)
+      .put(API_URL + disableUrl + userID)
       .then((res) => {
         const response = res.data;
         if (response.successful === true) {
@@ -106,7 +108,7 @@ const Users = () => {
 
   const enableUser = async () => {
     await axios
-      .post(API_URL + rejectUrl + userID)
+      .put(API_URL + enableUrl + userID)
       .then((res) => {
         const response = res.data;
         if (response.successful === true) {
@@ -223,18 +225,21 @@ const Users = () => {
               <>
                 <WithdrawalPreviewBtn
                   $approve
+                  $disabled={singleUser[0]?.disabled}
                   onClick={() => {
-                    disableUser();
+                    singleUser[0]?.disabled !== true && disableUser();
                   }}>
-                  Disable
+                  {singleUser[0]?.disabled === true ? "Disabled" : "Disable"}
                 </WithdrawalPreviewBtn>
-                <WithdrawalPreviewBtn
-                  $reject
-                  onClick={() => {
-                    enableUser();
-                  }}>
-                  Re-Enable
-                </WithdrawalPreviewBtn>
+                {singleUser[0]?.disabled === false && (
+                  <WithdrawalPreviewBtn
+                    $reject
+                    onClick={() => {
+                      enableUser();
+                    }}>
+                    Re-Enable
+                  </WithdrawalPreviewBtn>
+                )}
               </>
             </WithdrawalPreviewDetailed>
           </div>

@@ -126,7 +126,7 @@ export const WithdrawalPreviewBtn = styled.div`
   width: 100%;
   padding: 10px;
   ${Centering}
-  cursor: pointer;
+  cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
   margin: 20px auto;
   border-radius: 20px;
   background: ${(props) =>
