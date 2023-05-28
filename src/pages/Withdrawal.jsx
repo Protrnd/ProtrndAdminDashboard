@@ -17,11 +17,13 @@ import moment from "moment";
 const Withdrawal = () => {
   const [withdrawalRequests, setWithdrawalRequests] = useState({});
   const [withdrawalID, setWithdrawalID] = useState("");
+  const [profileName, setProfileName] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const withdrawalUrl = "payment/withdrawal/all";
   const approveUrl = "payment/withdrawal/approve/";
   const rejectUrl = "payment/withdrawal/reject/";
+  const profileUrl = "profile/";
   const token = localStorage.getItem("token");
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -128,6 +130,21 @@ const Withdrawal = () => {
         toast.error(err?.response?.data || "Error rejecting request");
       });
   };
+
+  const profileByID = async (id) => {
+    await axios
+      .get(API_URL + profileUrl + id)
+      .then((res) => {
+        const response = res.data.data.fullname;
+        setProfileName(response);
+      })
+      .catch((err) => {
+        console.log({ err });
+        toast.error(err?.response?.data || "Error making request");
+      });
+  };
+
+  singleWithdrawalRequest && profileByID(singleWithdrawalRequest[0]?.by);
   return (
     <WithdrawalPreviewContainer>
       <ToastContainer
@@ -213,7 +230,7 @@ const Withdrawal = () => {
                   <>
                     <p>
                       <span className="text-gradient">Approved by:</span>{" "}
-                      {singleWithdrawalRequest[0]?.by}
+                      {profileName}
                     </p>
                     <p>
                       <span className="text-gradient">Approved Date:</span>{" "}
@@ -227,7 +244,7 @@ const Withdrawal = () => {
                   <>
                     <p>
                       <span className="text-danger">Rejected by:</span>{" "}
-                      {singleWithdrawalRequest[0]?.by}
+                      {profileName}
                     </p>
                     <p>
                       <span className="text-danger">Rejection Date:</span>{" "}
